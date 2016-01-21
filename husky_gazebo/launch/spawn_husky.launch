@@ -28,6 +28,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <arg name="laser_enabled" default="true"/>
   <arg name="ur5_enabled" default="false"/>
   <arg name="kinect_enabled" default="false"/>
+  <arg name="ur5_control_yaml_file" default="$(find husky_control)/config/control_ur5.yaml"/>
 
   <param name="robot_description" command="$(find xacro)/xacro.py '$(env HUSKY_GAZEBO_DESCRIPTION)'
     laser_enabled:=$(arg laser_enabled)
@@ -44,7 +45,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <group if="$(arg ur5_enabled)">
 
     <!-- Load UR5 controllers -->
-    <rosparam command="load" file="$(find husky_control)/config/control_ur5.yaml" />
+    <rosparam command="load" file="$(arg ur5_control_yaml_file)" />
     <node name="arm_controller_spawner" pkg="controller_manager" type="spawner" args="arm_controller --shutdown-timeout 3"/>
 
     <!-- Fake Calibration -->
